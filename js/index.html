@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="./js/vendor/d3.js"></script>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    path {
+    stroke: black;
+    stroke-width: 2;
+    fill: none;
+}
+</style>
+
+</head>
+<body>
+    
+
+<script type="text/javascript">
+var y = d3.scale.linear()
+    .domain([0, 10])
+    .range([h, 0]);
+
+var line = d3.svg.line()
+    .x(function(d) { return x(d[0]); })
+    .y(function(d) { return y(d[1]); });
+
+var svg = d3.select('body').append('svg')
+    .attr('w', w)
+    .attr('h', h);
+
+    // add element and transition in
+    var path = svg.append('path')
+        .attr('class', 'line')
+        .attr('d', line(data[0]))
+        .transition()
+        .duration(1000)
+        .attrTween('d', pathTween);
+    
+    function pathTween() {
+        var interpolate = d3.scale.quantile()
+                .domain([0,1])
+                .range(d3.range(1, data.length + 1));
+        return function(t) {
+            return line(data.slice(0, interpolate(t)));
+        };
+    }
+    </script>
+</body>
+</html>

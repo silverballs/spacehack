@@ -22,7 +22,7 @@
 
   // Create quick reference variables for speed access to core prototypes.
   var
-    push             = ArrayProto.push,
+    push             = ArrayProto.push,  
     slice            = ArrayProto.slice,
     concat           = ArrayProto.concat,
     toString         = ObjProto.toString,
